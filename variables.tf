@@ -72,7 +72,9 @@ variable "cloudwatch_log_group_retention" {
   type        = string
   default     = "0"
   validation {
-    condition     = contains(["1", "3", "5", "7", "14", "30", "60", "90", "120", "150", "180", "365", "400", "545", "731", "1827", "3653", "0"], var.cloudwatch_log_group_retention)
+    condition = contains([
+      "1", "3", "5", "7", "14", "30", "60", "90", "120", "150", "180", "365", "400", "545", "731", "1827", "3653", "0"
+    ], var.cloudwatch_log_group_retention)
     error_message = "Valid values for var: cloudwatch_log_group_retention are (1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0)."
   }
 }
@@ -87,24 +89,14 @@ variable "maximum_concurrent_customizations" {
   }
 }
 
-variable "aft_vpc_endpoints" {
-  type        = bool
-  description = "Flag turning VPC endpoints on/off for AFT VPC"
-  default     = true
-  validation {
-    condition     = contains([true, false], var.aft_vpc_endpoints)
-    error_message = "Valid values for var: aft_vpc_endpoints are (true, false)."
-  }
-}
-
 variable "global_codebuild_timeout" {
   type        = number
   description = "Codebuild build timeout"
   default     = 60
   validation {
     condition = (
-      var.global_codebuild_timeout >= 5 &&
-      var.global_codebuild_timeout <= 480
+    var.global_codebuild_timeout >= 5 &&
+    var.global_codebuild_timeout <= 480
     )
     error_message = "Codebuild build timeout must be between 5 and 480 minutes."
   }
@@ -313,54 +305,22 @@ variable "terraform_api_endpoint" {
 # AFT VPC Variables
 #########################################
 
-variable "aft_vpc_cidr" {
+variable "vpc_id" {
   type        = string
-  description = "CIDR Block to allocate to the AFT VPC"
-  default     = "192.168.0.0/22"
-  validation {
-    condition     = can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", var.aft_vpc_cidr))
-    error_message = "Variable var: aft_vpc_cidr value must be a valid network CIDR, x.x.x.x/y."
-  }
+  default     = null
+  description = "The VPC id that you want to deploy AFT on"
 }
 
-variable "aft_vpc_private_subnet_01_cidr" {
-  type        = string
-  description = "CIDR Block to allocate to the Private Subnet 01"
-  default     = "192.168.0.0/24"
-  validation {
-    condition     = can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", var.aft_vpc_private_subnet_01_cidr))
-    error_message = "Variable var: aft_vpc_private_subnet_01_cidr value must be a valid network CIDR, x.x.x.x/y."
-  }
+variable "private_subnet_ids" {
+  type = list(string)
+  default = []
+  description = "List of private subnet IDs"
 }
 
-variable "aft_vpc_private_subnet_02_cidr" {
-  type        = string
-  description = "CIDR Block to allocate to the Private Subnet 02"
-  default     = "192.168.1.0/24"
-  validation {
-    condition     = can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", var.aft_vpc_private_subnet_02_cidr))
-    error_message = "Variable var: aft_vpc_private_subnet_02_cidr value must be a valid network CIDR, x.x.x.x/y."
-  }
-}
-
-variable "aft_vpc_public_subnet_01_cidr" {
-  type        = string
-  description = "CIDR Block to allocate to the Public Subnet 01"
-  default     = "192.168.2.0/25"
-  validation {
-    condition     = can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", var.aft_vpc_public_subnet_01_cidr))
-    error_message = "Variable var: aft_vpc_public_subnet_01_cidr value must be a valid network CIDR, x.x.x.x/y."
-  }
-}
-
-variable "aft_vpc_public_subnet_02_cidr" {
-  type        = string
-  description = "CIDR Block to allocate to the Public Subnet 02"
-  default     = "192.168.2.128/25"
-  validation {
-    condition     = can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", var.aft_vpc_public_subnet_02_cidr))
-    error_message = "Variable var: aft_vpc_public_subnet_02_cidr value must be a valid network CIDR, x.x.x.x/y."
-  }
+variable "public_subnet_ids" {
+  type = list(string)
+  default = []
+  description = "List of public subnet IDs"
 }
 
 #########################################

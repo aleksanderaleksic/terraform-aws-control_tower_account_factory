@@ -6,4 +6,5 @@ locals {
   account_id                      = data.aws_caller_identity.session.account_id
   target_id                       = "trigger_build"
   codebuild_invoker_function_name = "aft-lambda-layer-codebuild-invoker"
+  is_vpc_enabled                  = var.aft_vpc_id != null
 }

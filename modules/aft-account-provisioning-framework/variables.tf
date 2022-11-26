@@ -37,7 +37,7 @@ variable "aft_features_sfn_name" {
   type = string
 }
 
-variable "aft_vpc_private_subnets" {
+variable "aft_vpc_private_subnet_ids" {
   type = list(string)
 }
 
