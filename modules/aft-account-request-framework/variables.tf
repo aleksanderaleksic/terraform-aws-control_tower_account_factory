@@ -17,34 +17,20 @@ variable "aft_common_layer_arn" {
   type = string
 }
 
-variable "aft_vpc_cidr" {
-  type = string
-}
-
-variable "aft_vpc_private_subnet_01_cidr" {
-  type = string
-}
-
-variable "aft_vpc_private_subnet_02_cidr" {
-  type = string
-}
-
-variable "aft_vpc_public_subnet_01_cidr" {
-  type = string
-}
-
-variable "aft_vpc_public_subnet_02_cidr" {
-  type = string
-}
-
-variable "aft_vpc_endpoints" {
-  type = bool
-}
-
 variable "request_framework_archive_path" {
   type = string
 }
 
 variable "request_framework_archive_hash" {
   type = string
+}
+
+variable "aft_vpc_id" {
+  type    = string
+  default = null
+}
+
+variable "aft_private_subnet_ids" {
+  type    = string
+  default = []
 }

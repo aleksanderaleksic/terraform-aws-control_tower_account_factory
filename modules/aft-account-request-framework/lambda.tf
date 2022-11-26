@@ -17,11 +17,13 @@ resource "aws_lambda_function" "aft_account_request_audit_trigger" {
   timeout          = "300"
   layers           = [var.aft_common_layer_arn]
 
-  vpc_config {
-    subnet_ids         = tolist([aws_subnet.aft_vpc_private_subnet_01.id, aws_subnet.aft_vpc_private_subnet_02.id])
-    security_group_ids = tolist([aws_security_group.aft_vpc_default_sg.id])
+  dynamic "vpc_config" {
+    for_each = toset(local.is_vpc_enabled ? ["enabled"] : [])
+    content {
+      subnet_ids = var.aft_private_subnet_ids
+      security_group_ids = aws_security_group.aft_vpc_default_sg.*.id
+    }
   }
-
 }
 
 resource "time_sleep" "wait_60_seconds" {
@@ -60,11 +62,13 @@ resource "aws_lambda_function" "aft_account_request_action_trigger" {
   timeout          = "300"
   layers           = [var.aft_common_layer_arn]
 
-  vpc_config {
-    subnet_ids         = tolist([aws_subnet.aft_vpc_private_subnet_01.id, aws_subnet.aft_vpc_private_subnet_02.id])
-    security_group_ids = tolist([aws_security_group.aft_vpc_default_sg.id])
+  dynamic "vpc_config" {
+    for_each = toset(local.is_vpc_enabled ? ["enabled"] : [])
+    content {
+      subnet_ids = var.aft_private_subnet_ids
+      security_group_ids = aws_security_group.aft_vpc_default_sg.*.id
+    }
   }
-
 }
 
 resource "aws_lambda_event_source_mapping" "aft_account_request_action_trigger" {
@@ -97,9 +101,12 @@ resource "aws_lambda_function" "aft_controltower_event_logger" {
   timeout          = "300"
   layers           = [var.aft_common_layer_arn]
 
-  vpc_config {
-    subnet_ids         = tolist([aws_subnet.aft_vpc_private_subnet_01.id, aws_subnet.aft_vpc_private_subnet_02.id])
-    security_group_ids = tolist([aws_security_group.aft_vpc_default_sg.id])
+  dynamic "vpc_config" {
+    for_each = toset(local.is_vpc_enabled ? ["enabled"] : [])
+    content {
+      subnet_ids = var.aft_private_subnet_ids
+      security_group_ids = aws_security_group.aft_vpc_default_sg.*.id
+    }
   }
 }
 
@@ -133,11 +140,13 @@ resource "aws_lambda_function" "aft_account_request_processor" {
   timeout          = "300"
   layers           = [var.aft_common_layer_arn]
 
-  vpc_config {
-    subnet_ids         = tolist([aws_subnet.aft_vpc_private_subnet_01.id, aws_subnet.aft_vpc_private_subnet_02.id])
-    security_group_ids = tolist([aws_security_group.aft_vpc_default_sg.id])
+  dynamic "vpc_config" {
+    for_each = toset(local.is_vpc_enabled ? ["enabled"] : [])
+    content {
+      subnet_ids = var.aft_private_subnet_ids
+      security_group_ids = aws_security_group.aft_vpc_default_sg.*.id
+    }
   }
-
 }
 
 resource "aws_lambda_permission" "aft_account_request_processor" {
@@ -170,11 +179,13 @@ resource "aws_lambda_function" "aft_invoke_aft_account_provisioning_framework" {
   timeout          = "300"
   layers           = [var.aft_common_layer_arn]
 
-  vpc_config {
-    subnet_ids         = tolist([aws_subnet.aft_vpc_private_subnet_01.id, aws_subnet.aft_vpc_private_subnet_02.id])
-    security_group_ids = tolist([aws_security_group.aft_vpc_default_sg.id])
+  dynamic "vpc_config" {
+    for_each = toset(local.is_vpc_enabled ? ["enabled"] : [])
+    content {
+      subnet_ids = var.aft_private_subnet_ids
+      security_group_ids = aws_security_group.aft_vpc_default_sg.*.id
+    }
   }
-
 }
 
 resource "aws_lambda_permission" "aft_invoke_aft_account_provisioning_framework" {

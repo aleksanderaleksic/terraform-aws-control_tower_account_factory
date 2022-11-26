@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 locals {
+  is_vpc_enabled          = var.vpc_id != null
   vcs = {
     is_codecommit        = lower(var.vcs_provider) == "codecommit" ? true : false
     is_bitbucket         = lower(var.vcs_provider) == "bitbucket" ? true : false
