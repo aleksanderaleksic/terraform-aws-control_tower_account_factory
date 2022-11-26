@@ -121,27 +121,3 @@ output "terraform_org_name" {
 output "terraform_api_endpoint" {
   value = var.terraform_api_endpoint
 }
-
-#########################################
-# AFT VPC Variables
-#########################################
-
-output "aft_vpc_cidr" {
-  value = var.aft_vpc_cidr
-}
-
-output "aft_vpc_private_subnet_01_cidr" {
-  value = var.aft_vpc_private_subnet_01_cidr
-}
-
-output "aft_vpc_private_subnet_02_cidr" {
-  value = var.aft_vpc_private_subnet_02_cidr
-}
-
-output "aft_vpc_public_subnet_01_cidr" {
-  value = var.aft_vpc_public_subnet_01_cidr
-}
-
-output "aft_vpc_public_subnet_02_cidr" {
-  value = var.aft_vpc_public_subnet_02_cidr
-}

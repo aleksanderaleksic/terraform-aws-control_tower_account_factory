@@ -31,6 +31,6 @@ variable "aft_vpc_id" {
 }
 
 variable "aft_private_subnet_ids" {
-  type    = string
+  type    = list(string)
   default = []
 }
