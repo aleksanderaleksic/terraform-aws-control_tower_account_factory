@@ -61,10 +61,14 @@ def lambda_handler(event: Dict[str, Any], context: Dict[str, Any]) -> LayerBuild
             execution = client.describe_execution(
                 executionArn=executionArn
             )
-            if execution['status'] == 'SUCCEEDED':
+            status = execution['status']
+            if status == 'SUCCEEDED':
                 logger.info(f"Build execution {executionArn} completed successfully")
                 return {"Status": 200}
-            time.sleep(10)
+            elif status == 'RUNNING':
+                time.sleep(10)
+            else:
+                raise Exception(f'Execution ({executionArn}) returned status `{status}`')
 
     except Exception as error:
         message = {
