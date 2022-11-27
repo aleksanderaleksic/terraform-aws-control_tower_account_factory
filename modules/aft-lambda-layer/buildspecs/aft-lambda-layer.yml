@@ -41,4 +41,4 @@ phases:
       - ls
       - mv -v ./.venv/lib/ ./python/
       - zip -r layer.zip python
-      - aws s3 cp layer.zip s3://${BUCKET_NAME}/layer.zip
+      - aws s3 cp layer.zip s3://${BUCKET_NAME}/${LAYER_S3_KEY}
