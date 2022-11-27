@@ -19,5 +19,5 @@ resource "aws_lambda_layer_version" "layer_version" {
   layer_name          = "${var.lambda_layer_name}-${replace(var.aft_version, ".", "-")}"
   compatible_runtimes = ["python${var.lambda_layer_python_version}"]
   s3_bucket           = var.s3_bucket_name
-  s3_key              = "layer.zip"
+  s3_key              = local.layer_s3_key
 }

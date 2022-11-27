@@ -56,6 +56,11 @@ resource "aws_codebuild_project" "codebuild" {
       type  = "PLAINTEXT"
     }
 
+    environment_variable {
+      name  = "LAYER_S3_KEY"
+      value = local.layer_s3_key
+      type  = "PLAINTEXT"
+    }
   }
 
   logs_config {
