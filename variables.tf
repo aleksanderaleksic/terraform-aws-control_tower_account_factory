@@ -33,6 +33,12 @@ variable "audit_account_id" {
 # General AFT Vars
 #########################################
 
+variable "aft_default_tags" {
+  description = "Tags added to all resources managed by this module"
+  type        = map(string)
+  default     = {}
+}
+
 variable "aft_framework_repo_url" {
   description = "Git repo URL where the AFT framework should be sourced from"
   default     = "https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git"
@@ -312,14 +318,14 @@ variable "vpc_id" {
 }
 
 variable "private_subnet_ids" {
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
   description = "List of private subnet IDs"
 }
 
 variable "public_subnet_ids" {
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
   description = "List of public subnet IDs"
 }
 

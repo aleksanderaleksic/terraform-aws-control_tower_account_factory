@@ -6,9 +6,9 @@ provider "aws" {
   region = var.ct_home_region
   # The default profile or environment variables should authenticate to the Control Tower Management Account as Administrator
   default_tags {
-    tags = {
+    tags = merge({
       managed_by = "AFT"
-    }
+    }, var.aft_default_tags)
   }
 }
 
@@ -20,9 +20,9 @@ provider "aws" {
     session_name = local.aft_session_name
   }
   default_tags {
-    tags = {
+    tags = merge({
       managed_by = "AFT"
-    }
+    }, var.aft_default_tags)
   }
 }
 provider "aws" {
@@ -33,9 +33,9 @@ provider "aws" {
     session_name = local.aft_session_name
   }
   default_tags {
-    tags = {
+    tags = merge({
       managed_by = "AFT"
-    }
+    }, var.aft_default_tags)
   }
 }
 provider "aws" {
@@ -46,9 +46,9 @@ provider "aws" {
     session_name = local.aft_session_name
   }
   default_tags {
-    tags = {
+    tags = merge({
       managed_by = "AFT"
-    }
+    }, var.aft_default_tags)
   }
 }
 provider "aws" {
@@ -59,8 +59,8 @@ provider "aws" {
     session_name = local.aft_session_name
   }
   default_tags {
-    tags = {
+    tags = merge({
       managed_by = "AFT"
-    }
+    }, var.aft_default_tags)
   }
 }
